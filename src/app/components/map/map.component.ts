@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Pointer} from '../classes/pointer.class';
-import {MatSnackBar} from '@angular/material';
+import {Pointer} from '../../classes/pointer.class';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {EditMapComponent} from './edit-map.component';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {MatSnackBar} from '@angular/material';
 export class MapComponent implements OnInit {
   public pointers: Pointer[];
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(private snackBar: MatSnackBar, public dialog: MatDialog) {
     if (localStorage.getItem('pointers')) {
       this.pointers = JSON.parse(localStorage.getItem('pointers'));
     } else {
@@ -26,6 +27,26 @@ export class MapComponent implements OnInit {
     console.log('Coords ', newCoords);
     const newPointer: Pointer = new Pointer(newCoords.coords.lat, newCoords.coords.lng);
     this.pointers.push(newPointer);
+    this.saveToLocalStorage();
+  }
+
+  editPointer(pointer: Pointer) {
+    const dialogRef = this.dialog.open(EditMapComponent, {
+      width: '250px',
+      data: {title: pointer.title, description: pointer.description}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this.updatePointerParams(result, pointer);
+    });
+  }
+
+  updatePointerParams(newParams: any, pointer: Pointer) {
+    pointer.title = newParams.title;
+    pointer.description = newParams.description;
     this.saveToLocalStorage();
   }
 

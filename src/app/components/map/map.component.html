@@ -11,7 +11,7 @@
             {{ pointer.description }}
           </p>
           <div>
-            <button mat-raised-button color="primary">Edit</button>
+            <button mat-raised-button color="primary" (click)="editPointer(pointer)">Edit</button>
             <button mat-raised-button color="warn" (click)="removePointer(i)">Remove</button>
           </div>
         </agm-info-window>

@@ -6,17 +6,26 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AgmCoreModule } from '@agm/core';
-import { MapComponent } from './map/map.component';
+import { MapComponent } from './components/map/map.component';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+
 import {Key} from './enums/key.enum';
+import { EditMapComponent } from './components/map/edit-map.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
+  entryComponents: [
+    EditMapComponent
+  ],
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    EditMapComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +37,9 @@ import {Key} from './enums/key.enum';
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
