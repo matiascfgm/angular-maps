@@ -24,7 +24,6 @@ export class MapComponent implements OnInit {
   }
 
   createPointer(newCoords) {
-    console.log('Coords ', newCoords);
     const newPointer: Pointer = new Pointer(newCoords.coords.lat, newCoords.coords.lng);
     this.pointers.push(newPointer);
     this.saveToLocalStorage();
@@ -56,7 +55,6 @@ export class MapComponent implements OnInit {
     this.saveToLocalStorage();
     const snackBarRef = this.snackBar.open('Pointer removed', 'undo', {duration: 4000});
     snackBarRef.onAction().subscribe(() => {
-      console.log('clicked');
       this.pointers.push(tempPointer);
       this.saveToLocalStorage();
     });
